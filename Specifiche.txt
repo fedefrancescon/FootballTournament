@@ -1,0 +1,47 @@
+SIMULATORE TORNEO CALCIO 
+
+Realizzare un simulatore di un torneo di calcio secondo i seguenti criteri:
+  
+  ­ il processo principale “torneo” carica un file di “configurazione” (di testo) tipo  “config.txt” così composto (
+    può contenere righe che cominciano con il carattere “#” a  mo’ di commenti e vanno ignorate): 
+      ­ la prima riga contiene il numero di squadre partecipanti (almeno un valore tra 4  e 8 compresi)
+      ­ le righe successive contengono ciascuna nome e abilità
+      ­ almeno un valore da  1 a 10 compresi
+      ­ squadra (tipo “Italia 9”)
+
+    ESEMPIO file config.txt:
+      # Numero squadre:
+      4
+      # Squadre:
+      Italia 8
+      Germania 10
+      Brasile 7
+      Inghilterra 7
+  
+  ­ il nome del file di configurazione è “config.txt” di default, ma può essere selezionato 
+    richiamando il programma con un parametro “­c” / “­­config” 
+  ­ letti i dati di input si deve generare un calendario casuale di giornate (“all’italiana” con  andata e ritorno)
+  ­ per ogni giornata si deve generare un processo figlio “giornata” che “esegua” le partite
+  ­ per ogni partita si deve generare un processo figlio “partita” che calcoli il risultato del singolo incontro:
+    ogni 30 minuti virtuali è possibile che una squadra segni un gol con probabilità pari al 50% e proporzionalmente alla sua abilità
+    (quindi i risultati possibili vanno da 0­0 a 3­3)
+    ESEMPIO: match tra A con abilità 10 e B con abilità 5.
+    Ogni 30 minuti virtuali la  probabilità che A segni un gol è di 50%*(10/10)=50%, mentre per B è di  50%*(5/10)=25%
+
+  ­ la vittoria da 3 punti, il pareggio 1 punto, la sconfitta 0 punti
+  ­ si devono mostrare a video e salvare in un file di output i risultati delle partite ordinati per giornata:
+    il processo principale “torneo” deve attendere l’esecuzione dei figli  (“giornate”) e questi a loro volta
+    dei figli ulteriori (“partite”)
+  ­ al termine delle partite si deve stilare la classifica (mostrarla e salvarla)
+    Opzionalmente (per una maggiore valutazione del progetto):
+      ­ impostare un parametro aggiuntivo “­i” / “­­interactive” come flag: se impostato l’utente  “gioca” con la
+        prima squadra dell’elenco. In questo caso in ogni match in cui la squadra è coinvolta,
+        al momento di segnare o subire un gol si mostra a video un prompt in cui l’utente può rispondere premendo
+        “t” (tiro) o “p” (parata) entro 2  secondi… nel primo caso se preme “t” il gol è confermato altrimenti no, nel
+        secondo  caso se preme “p” il gol è annulato, altrimenti no.
+
+        ESEMPIO: l’utente gioca con l’Italia.
+        Si verifica l’evento “gol per l’Italia” e si mostra all’utente:  “AZIONE D’ATTACCO: (T)IRA O (P)ARA!! ”
+        se l’utente preme T il gol (proprio) è convalidato, altrimenti è annulato
+        Si verifica l’evento “gol per l’altra squadra” e si mostra all’utente:  “TIRO VERSO LA TUA PORTA: (T)IRA O (P)ARA!! "
+        se l’utente preme P il gol (dell’altra squadra) è annullato, altrimenti è convalidato
